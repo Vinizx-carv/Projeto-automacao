@@ -9,7 +9,7 @@
   },
   "item": [
     {
-      "name": "Garrafa Pet",
+      "name": "Pet",
       "item": [
         {
           "name": "Criar Pet",
@@ -53,7 +53,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"id\": 0,\n  \"category\": {\n    \"id\": 0,\n    \"name\": \"Cleiton dos teclados\"\n  },\n  \"name\": \"doggie\",\n  \"photoUrls\": [\n    \"string\"\n  ],\n  \"tags\": [\n    {\n      \"id\": 0,\n      \"name\": \"string\"\n    }\n  ],\n  \"status\": \"available\"\n}",
+              "raw": "{\n  \"id\": 0,\n  \"category\": {\n    \"id\": 0,\n    \"name\": \"Cleiton dos teclados\"\n  },\n  \"name\": \"dog\",\n  \"photoUrls\": [\n    \"string\"\n  ],\n  \"tags\": [\n    {\n      \"id\": 0,\n      \"name\": \"string\"\n    }\n  ],\n  \"status\": \"available\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -138,7 +138,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"id\": 0,\n  \"category\": {\n    \"id\": 0,\n    \"name\": \"Name atualizado\"\n  },\n  \"name\": \"doggie\",\n  \"photoUrls\": [\n    \"string\"\n  ],\n  \"tags\": [\n    {\n      \"id\": 0,\n      \"name\": \"string\"\n    }\n  ],\n  \"status\": \"available\"\n}",
+              "raw": "{\n  \"id\": {{petId}},\n  \"category\": {\n    \"id\": 0,\n    \"name\": \"Name new\"\n  },\n  \"name\": \"doggie\",\n  \"photoUrls\": [\n    \"string\"\n  ],\n  \"tags\": [\n    {\n      \"id\": 0,\n      \"name\": \"string\"\n    }\n  ],\n  \"status\": \"available\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -146,13 +146,12 @@
               }
             },
             "url": {
-              "raw": "{{baseURL}}/pet/{{petId}}",
+              "raw": "{{baseURL}}/pet",
               "host": [
                 "{{baseURL}}"
               ],
               "path": [
-                "pet",
-                "{{petId}}"
+                "pet"
               ]
             }
           },
