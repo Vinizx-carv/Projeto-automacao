@@ -2,8 +2,9 @@ name: Selenium Tests
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "**" ]
   pull_request:
+    branches: [ "main" ]
 
 jobs:
   test-e2e:
