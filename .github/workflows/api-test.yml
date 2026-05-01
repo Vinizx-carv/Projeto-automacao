@@ -1,4 +1,4 @@
-name: API Tests (Postman)
+name: Tests completo Pipeline
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
     branches: [ "main" ]
 
 jobs:
-  test-api:
+  test:
     runs-on: ubuntu-latest
 
     steps:

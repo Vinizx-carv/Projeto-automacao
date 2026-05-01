@@ -1,0 +1,32 @@
+name: Selenium Tests
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+
+jobs:
+  test-e2e:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Baixar código
+        uses: actions/checkout@v3
+
+      - name: Instalar Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.10
+
+      - name: Instalar dependências
+        run: |
+          pip install -r requirements.txt
+
+      - name: Instalar Google Chrome
+        run: |
+          sudo apt update
+          sudo apt install -y google-chrome-stable
+
+      - name: Rodar testes Selenium
+        run: |
+          python -m unittest discover tests/selenium
