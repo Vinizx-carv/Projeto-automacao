@@ -1,13 +1,13 @@
-name: API Tests (Postman)
+name: Tests completo Pipeline
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "**" ]
   pull_request:
     branches: [ "main" ]
 
 jobs:
-  test-api:
+  test:
     runs-on: ubuntu-latest
 
     steps:
@@ -24,6 +24,7 @@ jobs:
 
       - name: Rodar testes do Postman
         run: |
+          cd test/postman
           newman run automation.postman_collection.json \
           -e postman_environment.json \
           --reporters cli

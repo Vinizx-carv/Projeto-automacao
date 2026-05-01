@@ -1,0 +1,618 @@
+{
+  "info": {
+    "_postman_id": "4a781518-f60a-41e3-bf46-7414266007dd",
+    "name": "My Collection",
+    "description": "### Welcome to Postman! This is your first collection. \n\nCollections are your starting point for building and testing APIs. You can use this one to:\n\n• Group related requests\n• Test your API in real-world scenarios\n• Document and share your requests\n\nUpdate the name and overview whenever you’re ready to make it yours.\n\n[Learn more about Postman Collections.](https://learning.postman.com/docs/collections/collections-overview/)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "54292345",
+    "_collection_link": "https://go.postman.co/collection/54292345-4a781518-f60a-41e3-bf46-7414266007dd?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Pet",
+      "item": [
+        {
+          "name": "Criar Pet",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "let body = pm.response.text();",
+                  "let match = body.match(/\"id\":\\s*(\\d+)/);",
+                  "",
+                  "if (match) {",
+                  "    pm.environment.set(\"petId\", match[1]); // salva como string correta",
+                  "}",
+                  "",
+                  "pm.test(\"Pet criado com sucesso\", () => {",
+                  "    pm.response.to.have.status(200)",
+                  "})",
+                  "",
+                  "pm.test(\"Tempo de resposta < 500ms\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(500);",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": 0,\n  \"category\": {\n    \"id\": 0,\n    \"name\": \"Cleiton dos teclados\"\n  },\n  \"name\": \"dog\",\n  \"photoUrls\": [\n    \"string\"\n  ],\n  \"tags\": [\n    {\n      \"id\": 0,\n      \"name\": \"string\"\n    }\n  ],\n  \"status\": \"available\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseURL}}/pet",
+              "host": [
+                "{{baseURL}}"
+              ],
+              "path": [
+                "pet"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Buscar Pet",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Pet encontrado com sucesso\", () => {",
+                  "    pm.response.to.have.status(200)",
+                  "})",
+                  "",
+                  "pm.test(\"Tempo de resposta < 500ms\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(500);",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseURL}}/pet/{{petId}}",
+              "host": [
+                "{{baseURL}}"
+              ],
+              "path": [
+                "pet",
+                "{{petId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Atualizar Pet",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Pet atualizado com sucesso\", () => {",
+                  "    pm.response.to.have.status(200)",
+                  "})",
+                  "",
+                  "pm.test(\"Tempo de resposta < 500ms\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(500);",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": {{petId}},\n  \"category\": {\n    \"id\": 0,\n    \"name\": \"Name new\"\n  },\n  \"name\": \"doggie\",\n  \"photoUrls\": [\n    \"string\"\n  ],\n  \"tags\": [\n    {\n      \"id\": 0,\n      \"name\": \"string\"\n    }\n  ],\n  \"status\": \"available\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseURL}}/pet",
+              "host": [
+                "{{baseURL}}"
+              ],
+              "path": [
+                "pet"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Deletar Pet",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Pet deletado com sucesso\", () => {",
+                  "    pm.response.to.have.status(200)",
+                  "})",
+                  "",
+                  "pm.test(\"Tempo de resposta < 500ms\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(500);",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseURL}}/pet/{{petId}}",
+              "host": [
+                "{{baseURL}}"
+              ],
+              "path": [
+                "pet",
+                "{{petId}}"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Store",
+      "item": [
+        {
+          "name": "Criar Pedido",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "let body = pm.response.text();",
+                  "let match = body.match(/\"id\":\\s*(\\d+)/);",
+                  "",
+                  "if (match) {",
+                  "    pm.environment.set(\"orderId\", match[1]); // salva como string correta",
+                  "}",
+                  "",
+                  "pm.test(\"Pedido criado com sucesso\", () => {",
+                  "    pm.response.to.have.status(200)",
+                  "})",
+                  "",
+                  "pm.test(\"Tempo de resposta < 500ms\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(500);",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": 0,\n  \"petId\": 0,\n  \"quantity\": 0,\n  \"shipDate\": \"2026-05-01T00:21:12.682Z\",\n  \"status\": \"placed\",\n  \"complete\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseURL}}/store/order",
+              "host": [
+                "{{baseURL}}"
+              ],
+              "path": [
+                "store",
+                "order"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Inventário Por Status",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Inventário buscado com sucesso\", () => {",
+                  "    pm.response.to.have.status(200)",
+                  "})",
+                  "",
+                  "pm.test(\"Tempo de resposta < 500ms\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(500);",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": 0,\n  \"petId\": 0,\n  \"quantity\": 0,\n  \"shipDate\": \"2026-05-01T00:21:12.682Z\",\n  \"status\": \"placed\",\n  \"complete\": true\n}"
+            },
+            "url": {
+              "raw": "{{baseURL}}/store/inventory",
+              "host": [
+                "{{baseURL}}"
+              ],
+              "path": [
+                "store",
+                "inventory"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Buscar Pedido Por Id",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Pedido buscado com sucesso\", () => {",
+                  "    pm.response.to.have.status(200)",
+                  "})",
+                  "",
+                  "pm.test(\"Tempo de resposta < 500ms\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(500);",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseURL}}/store/order/{{orderId}}",
+              "host": [
+                "{{baseURL}}"
+              ],
+              "path": [
+                "store",
+                "order",
+                "{{orderId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Deletar Pedido",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Pedido deletado com sucesso\", () => {",
+                  "    pm.response.to.have.status(200)",
+                  "})",
+                  "",
+                  "pm.test(\"Tempo de resposta < 500ms\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(500);",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": 0,\n  \"petId\": 0,\n  \"quantity\": 0,\n  \"shipDate\": \"2026-05-01T00:21:12.682Z\",\n  \"status\": \"placed\",\n  \"complete\": true\n}"
+            },
+            "url": {
+              "raw": "{{baseURL}}/store/order/{{orderId}}",
+              "host": [
+                "{{baseURL}}"
+              ],
+              "path": [
+                "store",
+                "order",
+                "{{orderId}}"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "User",
+      "item": []
+    },
+    {
+      "name": "Criar Usuário",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "",
+              "",
+              "pm.test(\"Usuário criado com sucesso\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test(\"Tempo de resposta < 500ms\", function () {",
+              "    pm.expect(pm.response.responseTime).to.be.below(500);",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "let body = pm.request.body.raw;",
+              "let json = JSON.parse(body);",
+              "",
+              "pm.environment.set(\"username\", json.username);",
+              "",
+              "",
+              "",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"id\": 0,\n  \"username\": \"username\",\n  \"lastName\": \"string\",\n  \"email\": \"string\",\n  \"password\": \"string\",\n  \"phone\": \"string\",\n  \"userStatus\": 0\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseURL}}/user",
+          "host": [
+            "{{baseURL}}"
+          ],
+          "path": [
+            "user"
+          ]
+        },
+        "description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+      },
+      "response": []
+    },
+    {
+      "name": "Buscar Usuário",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Usuário buscado com sucesso\", () => {",
+              "    pm.response.to.have.status(200)",
+              "})",
+              "",
+              "",
+              "pm.test(\"Tempo de resposta < 500ms\", function () {",
+              "    pm.expect(pm.response.responseTime).to.be.below(500);",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseURL}}/user/{{username}}",
+          "host": [
+            "{{baseURL}}"
+          ],
+          "path": [
+            "user",
+            "{{username}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Atualizar Usuário",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Usuário atualizado com sucesso\", () => {",
+              "    pm.response.to.have.status(200)",
+              "})",
+              "",
+              "pm.test(\"Tempo de resposta < 500ms\", function () {",
+              "    pm.expect(pm.response.responseTime).to.be.below(500);",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"id\": 0,\n  \"username\": \"New username\",\n  \"lastName\": \"string\",\n  \"email\": \"string\",\n  \"password\": \"string\",\n  \"phone\": \"string\",\n  \"userStatus\": 0\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseURL}}/user/{{username}}",
+          "host": [
+            "{{baseURL}}"
+          ],
+          "path": [
+            "user",
+            "{{username}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Deletar Usuário",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Usuário deletado com sucesso\", () => {",
+              "    pm.response.to.have.status(200)",
+              "})",
+              "",
+              "",
+              "pm.test(\"Tempo de resposta < 500ms\", function () {",
+              "    pm.expect(pm.response.responseTime).to.be.below(500);",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{baseURL}}/user/{{username}}",
+          "host": [
+            "{{baseURL}}"
+          ],
+          "path": [
+            "user",
+            "{{username}}"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseURL",
+      "value": ""
+    },
+    {
+      "key": "petId",
+      "value": ""
+    }
+  ]
+}
