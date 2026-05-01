@@ -30,4 +30,4 @@ jobs:
 
       - name: Rodar testes Selenium
         run: |
-          python -m unittest discover tests/selenium
+          python -m unittest discover -s tests -p "test_*.py"
