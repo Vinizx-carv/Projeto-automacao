@@ -186,7 +186,6 @@ O projeto utiliza GitHub Actions para automação dos testes.
 ### Benefícios:
 
 * Validação contínua
-* Detecção de regressões
 * Execução automatizada a cada push
 
 ---
@@ -197,53 +196,20 @@ O projeto utiliza GitHub Actions para automação dos testes.
 
 Adicionar:
 
-* Tela de login
-* Carrinho
-* Checkout final com sucesso
-
 ---
 
 ### Postman / Newman
 
 Adicionar:
 
-* Execução completa da collection
-* Todos os testes passando (verde)
-* Tempo de resposta
-
 ---
 
-## Pontos de Atenção
-
-### 1. Variável obrigatória
-
-Certifique-se de definir:
-
-```
-baseURL = https://petstore.swagger.io/v2
-```
-
----
-
-### 2. Execução Headless
-
-O Selenium roda em modo headless (sem interface gráfica).
-Para debug, remova:
-
-```python
---headless
-```
-
----
-
-### 3. Tempo de resposta
+### 1. Tempo de resposta
 
 Os limites variam entre:
 
 * 500ms
 * 1000ms
-
-Para maior consistência, recomenda-se padronizar.
 
 ---
 
