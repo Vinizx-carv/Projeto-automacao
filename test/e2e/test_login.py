@@ -37,6 +37,18 @@ class TestMissaoLogin(unittest.TestCase):
         driver.find_element(By.ID, "password").send_keys(password)
         driver.find_element(By.ID, "login-button").click()
 
+        
+
+        errors = driver.find_elements(By.CLASS_NAME, "error-message-container")
+        if errors:
+            raise AssertionError(f"Login falhou: {errors[0].text}")
+
+        self.wait.until(
+            EC.visibility_of_element_located((By.CLASS_NAME, "app_logo"))
+        )
+
+
+
         self.wait.until(EC.url_contains("inventory"))
 
 
