@@ -3,8 +3,6 @@ name: Selenium Tests
 on:
   push:
     branches: [ "**" ]
-  pull_request:
-    branches: [ "main" ]
 
 jobs:
   test-e2e:
