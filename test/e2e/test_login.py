@@ -16,9 +16,9 @@ class TestMissaoLogin(unittest.TestCase):
         chrome_options.add_argument("--no-sandbox")
         chrome_options.add_argument("--disable-dev-shm-usage")
 
-        service = Service(ChromeDriverManager().install())
-        self.driver = webdriver.Chrome(service=service, options=chrome_options)
-        self.wait = WebDriverWait(self.driver, 30)
+        
+        self.driver = webdriver.Chrome(options=chrome_options)
+        self.wait = WebDriverWait(self.driver, 10)
 
     def test_fluxo_compra(self):
         driver = self.driver
