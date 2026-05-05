@@ -6,6 +6,10 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from webdriver_manager.chrome import ChromeDriverManager
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 
 class TestMissaoLogin(unittest.TestCase):
@@ -16,8 +20,8 @@ class TestMissaoLogin(unittest.TestCase):
         chrome_options.add_argument("--no-sandbox")
         chrome_options.add_argument("--disable-dev-shm-usage")
 
-        
-        self.driver = webdriver.Chrome(options=chrome_options)
+        service = Service(ChromeDriverManager().install())
+        self.driver = webdriver.Chrome(service=service, options=chrome_options)
         self.wait = WebDriverWait(self.driver, 10)
 
     def test_fluxo_compra(self):
@@ -26,8 +30,11 @@ class TestMissaoLogin(unittest.TestCase):
         driver.get("https://www.saucedemo.com/")
 
 
-        self.wait.until(EC.visibility_of_element_located((By.ID, "user-name"))).send_keys("standard_user")
-        driver.find_element(By.ID, "password").send_keys("secret_sauce")
+        username = os.getenv("USERNAME")
+        password = os.getenv("PASSWORD")
+
+        self.wait.until(EC.visibility_of_element_located((By.ID, "user-name"))).send_keys(username)
+        driver.find_element(By.ID, "password").send_keys(password)
         driver.find_element(By.ID, "login-button").click()
 
         self.assertIn("inventory", driver.current_url)
