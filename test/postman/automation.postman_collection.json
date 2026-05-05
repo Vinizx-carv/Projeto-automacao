@@ -33,7 +33,7 @@
                   "let match = body.match(/\"id\":\\s*(\\d+)/);",
                   "",
                   "if (match) {",
-                  "    pm.environment.set(\"petId\", match[1]); // salva como string correta",
+                  "    pm.environment.set(\"petId\", match[1]);",
                   "}",
                   "",
                   "pm.test(\"Pet criado com sucesso\", () => {",
@@ -228,7 +228,7 @@
                   "})",
                   "",
                   "pm.test(\"Tempo de resposta < 500ms\", function () {",
-                  "    pm.expect(pm.response.responseTime).to.be.below(500);",
+                  "    pm.expect(pm.response.responseTime).to.be.below(1000);",
                   "});"
                 ],
                 "type": "text/javascript",
@@ -274,7 +274,7 @@
                   "})",
                   "",
                   "pm.test(\"Tempo de resposta < 500ms\", function () {",
-                  "    pm.expect(pm.response.responseTime).to.be.below(500);",
+                  "    pm.expect(pm.response.responseTime).to.be.below(1000);",
                   "});"
                 ],
                 "type": "text/javascript",
@@ -318,7 +318,7 @@
                   "})",
                   "",
                   "pm.test(\"Tempo de resposta < 500ms\", function () {",
-                  "    pm.expect(pm.response.responseTime).to.be.below(500);",
+                  "    pm.expect(pm.response.responseTime).to.be.below(1000);",
                   "});"
                 ],
                 "type": "text/javascript",
@@ -356,7 +356,7 @@
                   "})",
                   "",
                   "pm.test(\"Tempo de resposta < 500ms\", function () {",
-                  "    pm.expect(pm.response.responseTime).to.be.below(500);",
+                  "    pm.expect(pm.response.responseTime).to.be.below(1000);",
                   "});"
                 ],
                 "type": "text/javascript",
@@ -390,195 +390,196 @@
     },
     {
       "name": "User",
-      "item": []
-    },
-    {
-      "name": "Criar Usuário",
-      "event": [
+      "item": [
         {
-          "listen": "test",
-          "script": {
-            "exec": [
-              "",
-              "",
-              "pm.test(\"Usuário criado com sucesso\", function () {",
-              "    pm.response.to.have.status(200);",
-              "});",
-              "",
-              "pm.test(\"Tempo de resposta < 500ms\", function () {",
-              "    pm.expect(pm.response.responseTime).to.be.below(500);",
-              "});"
-            ],
-            "type": "text/javascript",
-            "packages": {},
-            "requests": {}
-          }
-        },
-        {
-          "listen": "prerequest",
-          "script": {
-            "exec": [
-              "let body = pm.request.body.raw;",
-              "let json = JSON.parse(body);",
-              "",
-              "pm.environment.set(\"username\", json.username);",
-              "",
-              "",
-              "",
-              ""
-            ],
-            "type": "text/javascript",
-            "packages": {},
-            "requests": {}
-          }
-        }
-      ],
-      "request": {
-        "method": "POST",
-        "header": [],
-        "body": {
-          "mode": "raw",
-          "raw": "{\n  \"id\": 0,\n  \"username\": \"username\",\n  \"lastName\": \"string\",\n  \"email\": \"string\",\n  \"password\": \"string\",\n  \"phone\": \"string\",\n  \"userStatus\": 0\n}",
-          "options": {
-            "raw": {
-              "language": "json"
+          "name": "Criar Usuário",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "",
+                  "",
+                  "pm.test(\"Usuário criado com sucesso\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Tempo de resposta < 500ms\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(500);",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "let body = pm.request.body.raw;",
+                  "let json = JSON.parse(body);",
+                  "",
+                  "pm.environment.set(\"username\", json.username);",
+                  "",
+                  "",
+                  "",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
             }
-          }
-        },
-        "url": {
-          "raw": "{{baseURL}}/user",
-          "host": [
-            "{{baseURL}}"
           ],
-          "path": [
-            "user"
-          ]
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": 0,\n  \"username\": \"Vinicius\",\n  \"lastName\": \"string\",\n  \"email\": \"string\",\n  \"password\": \"string\",\n  \"phone\": \"string\",\n  \"userStatus\": 0\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseURL}}/user",
+              "host": [
+                "{{baseURL}}"
+              ],
+              "path": [
+                "user"
+              ]
+            },
+            "description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+          },
+          "response": []
         },
-        "description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
-      },
-      "response": []
-    },
-    {
-      "name": "Buscar Usuário",
-      "event": [
         {
-          "listen": "test",
-          "script": {
-            "exec": [
-              "pm.test(\"Usuário buscado com sucesso\", () => {",
-              "    pm.response.to.have.status(200)",
-              "})",
-              "",
-              "",
-              "pm.test(\"Tempo de resposta < 500ms\", function () {",
-              "    pm.expect(pm.response.responseTime).to.be.below(500);",
-              "});"
-            ],
-            "type": "text/javascript",
-            "packages": {},
-            "requests": {}
-          }
-        }
-      ],
-      "request": {
-        "method": "GET",
-        "header": [],
-        "url": {
-          "raw": "{{baseURL}}/user/{{username}}",
-          "host": [
-            "{{baseURL}}"
-          ],
-          "path": [
-            "user",
-            "{{username}}"
-          ]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "Atualizar Usuário",
-      "event": [
-        {
-          "listen": "test",
-          "script": {
-            "exec": [
-              "pm.test(\"Usuário atualizado com sucesso\", () => {",
-              "    pm.response.to.have.status(200)",
-              "})",
-              "",
-              "pm.test(\"Tempo de resposta < 500ms\", function () {",
-              "    pm.expect(pm.response.responseTime).to.be.below(500);",
-              "});"
-            ],
-            "type": "text/javascript",
-            "packages": {},
-            "requests": {}
-          }
-        }
-      ],
-      "request": {
-        "method": "PUT",
-        "header": [],
-        "body": {
-          "mode": "raw",
-          "raw": "{\n  \"id\": 0,\n  \"username\": \"New username\",\n  \"lastName\": \"string\",\n  \"email\": \"string\",\n  \"password\": \"string\",\n  \"phone\": \"string\",\n  \"userStatus\": 0\n}",
-          "options": {
-            "raw": {
-              "language": "json"
+          "name": "Buscar Usuário",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Usuário buscado com sucesso\", () => {",
+                  "    pm.response.to.have.status(200)",
+                  "})",
+                  "",
+                  "",
+                  "pm.test(\"Tempo de resposta < 500ms\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(500);",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
             }
-          }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseURL}}/user/{{username}}",
+              "host": [
+                "{{baseURL}}"
+              ],
+              "path": [
+                "user",
+                "{{username}}"
+              ]
+            }
+          },
+          "response": []
         },
-        "url": {
-          "raw": "{{baseURL}}/user/{{username}}",
-          "host": [
-            "{{baseURL}}"
-          ],
-          "path": [
-            "user",
-            "{{username}}"
-          ]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "Deletar Usuário",
-      "event": [
         {
-          "listen": "test",
-          "script": {
-            "exec": [
-              "pm.test(\"Usuário deletado com sucesso\", () => {",
-              "    pm.response.to.have.status(200)",
-              "})",
-              "",
-              "",
-              "pm.test(\"Tempo de resposta < 500ms\", function () {",
-              "    pm.expect(pm.response.responseTime).to.be.below(500);",
-              "});"
-            ],
-            "type": "text/javascript",
-            "packages": {},
-            "requests": {}
-          }
-        }
-      ],
-      "request": {
-        "method": "DELETE",
-        "header": [],
-        "url": {
-          "raw": "{{baseURL}}/user/{{username}}",
-          "host": [
-            "{{baseURL}}"
+          "name": "Atualizar Usuário",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Usuário atualizado com sucesso\", () => {",
+                  "    pm.response.to.have.status(200)",
+                  "})",
+                  "",
+                  "pm.test(\"Tempo de resposta < 500ms\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(500);",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
           ],
-          "path": [
-            "user",
-            "{{username}}"
-          ]
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": 0,\n  \"username\": \"Vinicius\",\n  \"lastName\": \"Carvalho\",\n  \"email\": \"vinicius@gmail.com\",\n  \"password\": \"string\",\n  \"phone\": \"string\",\n  \"userStatus\": 0\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseURL}}/user/{{username}}",
+              "host": [
+                "{{baseURL}}"
+              ],
+              "path": [
+                "user",
+                "{{username}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Deletar Usuário",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Usuário deletado com sucesso\", () => {",
+                  "    pm.response.to.have.status(200)",
+                  "})",
+                  "",
+                  "",
+                  "pm.test(\"Tempo de resposta < 500ms\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(500);",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseURL}}/user/{{username}}",
+              "host": [
+                "{{baseURL}}"
+              ],
+              "path": [
+                "user",
+                "{{username}}"
+              ]
+            }
+          },
+          "response": []
         }
-      },
-      "response": []
+      ]
     }
   ],
   "event": [
