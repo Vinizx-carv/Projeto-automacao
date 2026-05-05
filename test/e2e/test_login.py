@@ -39,9 +39,9 @@ class TestMissaoLogin(unittest.TestCase):
 
         self.wait.until(EC.element_to_be_clickable((By.ID, "checkout"))).click()
 
-        self.wait.until(
-        EC.visibility_of_element_located((By.ID, "first-name"))
-        )
+
+
+        self.wait.until(EC.visibility_of_element_located((By.ID, "first-name")))
         driver.find_element(By.ID, "first-name").send_keys("Vinicius")
         driver.find_element(By.ID, "last-name").send_keys("Carvalho")
         driver.find_element(By.ID, "postal-code").send_keys("99999999")
@@ -49,7 +49,10 @@ class TestMissaoLogin(unittest.TestCase):
         self.wait.until(EC.element_to_be_clickable((By.ID, "continue"))).click()
 
 
+
         self.wait.until(EC.element_to_be_clickable((By.ID, "finish"))).click()
+
+
 
         mensagem = self.wait.until(
             EC.visibility_of_element_located((By.CLASS_NAME, "complete-header"))
