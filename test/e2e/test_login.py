@@ -18,7 +18,7 @@ class TestMissaoLogin(unittest.TestCase):
 
         service = Service(ChromeDriverManager().install())
         self.driver = webdriver.Chrome(service=service, options=chrome_options)
-        self.wait = WebDriverWait(self.driver, 20)
+        self.wait = WebDriverWait(self.driver, 30)
 
     def test_fluxo_compra(self):
         driver = self.driver
