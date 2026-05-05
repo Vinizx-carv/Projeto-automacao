@@ -45,6 +45,7 @@ class TestMissaoLogin(unittest.TestCase):
         self.wait.until(EC.element_to_be_clickable((By.CLASS_NAME, "shopping_cart_link"))).click()
 
 
+
         self.wait.until(EC.element_to_be_clickable((By.ID, "checkout"))).click()
 
         self.wait.until(EC.url_contains("checkout-step-one"))
