@@ -37,7 +37,7 @@ class TestMissaoLogin(unittest.TestCase):
         driver.find_element(By.ID, "password").send_keys(password)
         driver.find_element(By.ID, "login-button").click()
 
-        self.assertIn("inventory", driver.current_url)
+        self.wait.until(EC.url_contains("inventory"))
 
 
         self.wait.until(EC.element_to_be_clickable((By.ID, "add-to-cart-sauce-labs-backpack"))).click()
