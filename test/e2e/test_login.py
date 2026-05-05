@@ -37,18 +37,18 @@ class TestMissaoLogin(unittest.TestCase):
 
         self.wait.until(EC.element_to_be_clickable((By.CLASS_NAME, "shopping_cart_link"))).click()
 
+
         self.wait.until(EC.element_to_be_clickable((By.ID, "checkout"))).click()
 
-        print("URL atual:", driver.current_url)
+        self.wait.until(EC.url_contains("checkout-step-one"))
 
-        self.wait.until(EC.visibility_of_element_located((By.ID, "first-name")))
-        driver.find_element(By.ID, "first-name").send_keys("Vinicius")
+        self.wait.until(EC.visibility_of_element_located((By.ID, "first-name"))).send_keys("Vinicius")
         driver.find_element(By.ID, "last-name").send_keys("Carvalho")
         driver.find_element(By.ID, "postal-code").send_keys("99999999")
 
         self.wait.until(EC.element_to_be_clickable((By.ID, "continue"))).click()
 
-
+        
 
         self.wait.until(EC.element_to_be_clickable((By.ID, "finish"))).click()
 
