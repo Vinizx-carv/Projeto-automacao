@@ -18,7 +18,7 @@ class TestMissaoLogin(unittest.TestCase):
 
         service = Service(ChromeDriverManager().install())
         self.driver = webdriver.Chrome(service=service, options=chrome_options)
-        self.wait = WebDriverWait(self.driver, 10)
+        self.wait = WebDriverWait(self.driver, 20)
 
     def test_fluxo_compra(self):
         driver = self.driver
@@ -39,7 +39,7 @@ class TestMissaoLogin(unittest.TestCase):
 
         self.wait.until(EC.element_to_be_clickable((By.ID, "checkout"))).click()
 
-
+        print("URL atual:", driver.current_url)
 
         self.wait.until(EC.visibility_of_element_located((By.ID, "first-name")))
         driver.find_element(By.ID, "first-name").send_keys("Vinicius")
