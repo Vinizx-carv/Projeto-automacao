@@ -58,10 +58,10 @@ class TestMissaoLogin(unittest.TestCase):
 
         self.wait.until(EC.url_contains("cart"))
 
-
-
+        print("URL antes do checkout:", driver.current_url)
+        self.wait.until(EC.presence_of_element_located((By.ID, "checkout")))
         self.wait.until(EC.element_to_be_clickable((By.ID, "checkout"))).click()
-
+        print("URL depois do clique:", driver.current_url)
         self.wait.until(EC.url_contains("checkout-step-one"))
 
         self.wait.until(EC.visibility_of_element_located((By.ID, "first-name"))).send_keys("Vinicius")
