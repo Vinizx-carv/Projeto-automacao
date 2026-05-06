@@ -17,41 +17,13 @@ class TestMissaoLogin(unittest.TestCase):
 
     def setUp(self):
         chrome_options = Options()
-        chrome_options.add_argument("--headless=new")  
+        chrome_options.add_argument("--headless=new")
         chrome_options.add_argument("--no-sandbox")
         chrome_options.add_argument("--disable-dev-shm-usage")
 
         service = Service(ChromeDriverManager().install())
         self.driver = webdriver.Chrome(service=service, options=chrome_options)
-        self.wait = WebDriverWait(self.driver, 15)
-
-
-    def safe_click(self, locator):
-        driver = self.driver
-        wait = self.wait
-
-        element = wait.until(EC.presence_of_element_located(locator))
-
-
-        try:
-            wait.until(EC.element_to_be_clickable(locator))
-            element.click()
-            return
-        except:
-            pass
-
-
-        try:
-            driver.execute_script(
-                "arguments[0].scrollIntoView({block: 'center'});", element
-            )
-            element.click()
-            return
-        except:
-            pass
-
-      
-        driver.execute_script("arguments[0].click();", element)
+        self.wait = WebDriverWait(self.driver, 10)
 
     def test_fluxo_compra(self):
         driver = self.driver
@@ -62,9 +34,8 @@ class TestMissaoLogin(unittest.TestCase):
         password = os.getenv("PASSWORD")
 
         if not username or not password:
-            raise RuntimeError("Credenciais não carregadas")
+            raise ValueError("Credenciais não carregadas")
 
-   
         self.wait.until(
             EC.visibility_of_element_located((By.ID, "user-name"))
         ).send_keys(username)
@@ -72,39 +43,21 @@ class TestMissaoLogin(unittest.TestCase):
         driver.find_element(By.ID, "password").send_keys(password)
         driver.find_element(By.ID, "login-button").click()
 
-      
-        errors = driver.find_elements(By.CLASS_NAME, "error-message-container")
-        if errors:
-            raise AssertionError(f"Login falhou: {errors[0].text}")
+        self.assertIn("inventory", driver.current_url)
 
-       
         self.wait.until(
-            EC.visibility_of_element_located((By.CLASS_NAME, "app_logo"))
-        )
-        self.wait.until(EC.url_contains("inventory"))
+            EC.element_to_be_clickable((By.ID, "add-to-cart-sauce-labs-backpack"))
+        ).click()
 
-     
-        self.safe_click((By.ID, "add-to-cart-sauce-labs-backpack"))
-
-      
-        self.safe_click((By.CLASS_NAME, "shopping_cart_link"))
-        self.wait.until(EC.url_contains("cart"))
-
-  
         self.wait.until(
-            EC.visibility_of_element_located((By.CLASS_NAME, "cart_list"))
-        )
+            EC.element_to_be_clickable((By.CLASS_NAME, "shopping_cart_link"))
+        ).click()
 
-        checkout_btn = self.wait.until(
-            EC.visibility_of_element_located((By.ID, "checkout"))
-        )
+        self.wait.until(
+            EC.element_to_be_clickable((By.ID, "checkout"))
+        ).click()
 
-        self.wait.until(lambda d: checkout_btn.is_displayed())
-
-        driver.execute_script("arguments[0].click();", checkout_btn)
-
-        self.wait.until(lambda d: "checkout-step-one" in d.current_url)
-
+        self.wait.until(EC.url_contains("checkout-step-one"))
 
         self.wait.until(
             EC.visibility_of_element_located((By.ID, "first-name"))
@@ -113,9 +66,13 @@ class TestMissaoLogin(unittest.TestCase):
         driver.find_element(By.ID, "last-name").send_keys("Carvalho")
         driver.find_element(By.ID, "postal-code").send_keys("99999999")
 
-        self.safe_click((By.ID, "continue"))
+        self.wait.until(
+            EC.element_to_be_clickable((By.ID, "continue"))
+        ).click()
 
-        self.safe_click((By.ID, "finish"))
+        self.wait.until(
+            EC.element_to_be_clickable((By.ID, "finish"))
+        ).click()
 
         mensagem = self.wait.until(
             EC.visibility_of_element_located((By.CLASS_NAME, "complete-header"))
