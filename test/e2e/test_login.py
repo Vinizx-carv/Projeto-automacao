@@ -91,8 +91,19 @@ class TestMissaoLogin(unittest.TestCase):
         self.wait.until(EC.url_contains("cart"))
 
   
-        self.safe_click((By.ID, "checkout"))
-        self.wait.until(EC.url_contains("checkout-step-one"))
+        self.wait.until(
+            EC.visibility_of_element_located((By.CLASS_NAME, "cart_list"))
+        )
+
+        checkout_btn = self.wait.until(
+            EC.visibility_of_element_located((By.ID, "checkout"))
+        )
+
+        self.wait.until(lambda d: checkout_btn.is_displayed())
+
+        driver.execute_script("arguments[0].click();", checkout_btn)
+
+        self.wait.until(lambda d: "checkout-step-one" in d.current_url)
 
 
         self.wait.until(
