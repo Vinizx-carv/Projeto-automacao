@@ -38,7 +38,6 @@ class TestMissaoLogin(unittest.TestCase):
         driver.find_element(By.ID, "login-button").click()
 
         
-
         errors = driver.find_elements(By.CLASS_NAME, "error-message-container")
         if errors:
             raise AssertionError(f"Login falhou: {errors[0].text}")
